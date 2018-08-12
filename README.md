@@ -234,3 +234,29 @@ webpack.optimize.CommonsChunkPlugin
 - 单页应用 
 - 单页应用 + 第三方依赖
 - 单页应用 + 第三方依赖 + webpack 生成代码
+### 代码分割和懒加载
+- webpack methods
+- ES 2015 Loader spec
+#### webpack methods
+- require.ensure
+  - []: dependencies 这里加载的依赖只会加载代码不会执行
+  - callback
+  - errorCallback
+  - chunkName
+- require.include
+#### ES 2015 Loader spec
+- System.import() -> import()
+- import() -> Promise
+- import().then()
+#### webpack import function
+```js
+import(
+  /*webpackChunkName:async-chunk-name*/
+  /*webpackMode:lazy*/
+  modulename
+)
+```
+#### 代码分割应用场景
+- 分离业务代码 和 第三方依赖
+- 分离业务代码 和 业务公共代码 和 第三方依赖
+- 分离首次加载 和 访问后加载的代码
