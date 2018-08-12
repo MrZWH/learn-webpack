@@ -302,9 +302,17 @@ A tool for transforming CSS with javascript
   - postcss-cssnext
 #### Browserslist
 所有插件都共用
- - package.json
- - .borwserslist
+- package.json
+- .borwserslist
 #### 其他
 - postcss-import
 - postcss-url
 - postcss-assets
+### Tree Shaking
+- JS Tree Shaking
+- CSS Tree Shaking
+#### 使用场景
+- 常规优化
+- 引入第三方库的某一个功能 有些第三方库并不能很好的支持 tree shaking，比如lodash，需要安装`npm install babel-loader babel-core babel-preset-env babel-plugin-lodash --save-dev`
+#### JS Tree Shaking
+- webpack.optimize.UglifyJSPlugin
