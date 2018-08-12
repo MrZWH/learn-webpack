@@ -260,3 +260,29 @@ import(
 - 分离业务代码 和 第三方依赖
 - 分离业务代码 和 业务公共代码 和 第三方依赖
 - 分离首次加载 和 访问后加载的代码
+### style-loader
+主要是创建style标签
+- style-loader
+- style-loader/url 生成 link 标签
+- style-loader/useable 可以控制style标签的存在与否
+配置：
+- options
+  - insertAt (插入位置)
+  - insertInto （插入到 dom）
+  - singleton （是否只使用一个 style 标签）
+  - transform （转化，浏览器环境下，插入页面前）
+### css-loader
+options
+ - alias (解析的别名)
+ - importLoader (@import)
+ - Minimize (是否压缩)
+ - modules (启用 css-modules)
+#### CSS-Modules
+:local 给本地局部加个样式
+:global 给全局样式
+compose 继承一个样式
+compose ... from path
+localIdentName: '[path][name]__[local]--[hash:base64:5]'  改配置用于设置类名模式
+### 配置 Less/Sass
+npm install less-loader less --save-dev
+npm install sass-loader node-sass --save-dev
