@@ -16,17 +16,17 @@ module.exports = {
 				use: [
 					{
 						loader: 'style-loader'
-						// loader: 'style-loader/url'
-						// loader: 'style-loader/useable'
 						options: {
-							insertInto: '#app',
 							singleton: true,
 							transform: './css.transform.js'
 						}
 					},
 					{
 						loader: 'css-loader'
-						// loader: 'file-loader'
+						options: {
+							// minimize: true,
+							modules: true
+						}
 					}
 				]
 			}

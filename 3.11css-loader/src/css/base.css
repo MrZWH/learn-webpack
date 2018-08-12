@@ -1,0 +1,9 @@
+html {
+	padding: 0;
+	margin: 0;
+}
+
+.box {
+	compose: bigBox from './common.css';
+	height: 200px;
+}
