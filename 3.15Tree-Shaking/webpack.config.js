@@ -1,7 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
-
+var PurifyCSS = require('purifycss-webpack')
+var glob = require('glob-all')
 module.exports = {
 	entry: {
 		app: './src/app.js'
@@ -27,21 +28,6 @@ module.exports = {
 					use: [
 						{
 							loader: 'css-loader'
-							options: {
-								minimize: true,
-								modules: true，
-								localIdentName: '[path][name]__[local]--[hash:base64:5]'
-							}
-						},
-						{
-							loader: 'postcss-loader',
-							options: {
-								ident: 'postcss',
-								plugins: [
-									// require('autoprefixer')(),
-									require('postcss-cssnext')()
-								]
-							}
 						},
 						{
 							loader: 'less-loader'
@@ -67,6 +53,12 @@ module.exports = {
 		new ExtractTextWebpackPlugin({
 			filename: '[name].min.css',
 			allChunks: false // 默认是false 异步加载的css 不单独打包
+		}),
+		new PurifyCSS({
+			paths: glob.sync([
+				path.join(__dirname, './*.html'),
+				path.join(__dirname, './src/*.js')
+			])
 		}),
 		new webpack.optimize.UglifyJSPlugin()
 	]

@@ -316,3 +316,11 @@ A tool for transforming CSS with javascript
 - 引入第三方库的某一个功能 有些第三方库并不能很好的支持 tree shaking，比如lodash，需要安装`npm install babel-loader babel-core babel-preset-env babel-plugin-lodash --save-dev`
 #### JS Tree Shaking
 - webpack.optimize.UglifyJSPlugin
+#### CSS Tree Shaking
+- Purify CSS
+  - https://github.com/purifycss/purifycss
+  - purifycss-webpack npm install purifycss-webpack --save-dev
+options
+  - paths: glob.sync([])
+  - npm install glob-all --save-dev
+purify 和 css module不能一块用，不过可以在purify的option中设置一些css-module的白名单来使用
