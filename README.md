@@ -291,3 +291,20 @@ npm install sass-loader node-sass --save-dev
 - ExtractTextWebpackPlugin 主流
 npm install extract-text-webpack-plugin --save-dev
 并不会自动的将打包出来的css 引入html中，需要手动link
+### PostCSS in Webpack
+#### PostCSS
+A tool for transforming CSS with javascript
+安装：
+  - postcss
+  - postcss-loader
+  - autoprefixer
+  - cssnano 压缩css
+  - postcss-cssnext
+#### Browserslist
+所有插件都共用
+ - package.json
+ - .borwserslist
+#### 其他
+- postcss-import
+- postcss-url
+- postcss-assets
