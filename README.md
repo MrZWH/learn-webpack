@@ -286,3 +286,8 @@ localIdentName: '[path][name]__[local]--[hash:base64:5]'  改配置用于设置�
 ### 配置 Less/Sass
 npm install less-loader less --save-dev
 npm install sass-loader node-sass --save-dev
+### 提取 CSS
+- extract-loader
+- ExtractTextWebpackPlugin 主流
+npm install extract-text-webpack-plugin --save-dev
+并不会自动的将打包出来的css 引入html中，需要手动link
