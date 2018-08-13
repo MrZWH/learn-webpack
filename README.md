@@ -347,3 +347,14 @@ purify 和 css module不能一块用，不过可以在purify的option中设置�
 - webpack.providePlugin
 - imports-loader
 - window
+### HTML in Webpack 生成 html
+```
+npm install html-webpack-plugin --save-dev
+```
+- HtmlWebpackPlugin
+- options
+  - template
+  - filename
+  - minify
+  - chunks
+  - inject

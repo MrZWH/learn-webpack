@@ -3,9 +3,11 @@ var path = require('path')
 var PurifyWebpack = require('purfycss-webpack')
 var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
 var glob = require('glob-all')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+
 
 var extractLess = new ExtractTextWebpackPlugin({
-	filename: 'css/[name].bundle.css',
+	filename: 'css/[name].bundle-[hash:5].css',
 })
 
 module.exports = {
@@ -14,8 +16,8 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		publicPath: './dist/'
-		filename: '[name].bundle.js',
+		// publicPath: './dist/',
+		filename: '[name].bundle-[hash:5].js',
 	},
 	resolve: {
 		alias: {
@@ -130,6 +132,14 @@ module.exports = {
 		// new webpack.ProvidePlugin({
 		// 	$: 'jquery'
 		// }),
+		new HtmlWebpackPlugin({
+			template: './index.html',
+			chunks: ['app'],
+			minify: {
+				collapseWhitespace: true,
+			}
+			// inject: false
+		}),
 		new webpack.optimize.UglifyJsPlugin()
 	]
 }
