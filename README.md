@@ -324,3 +324,19 @@ options
   - paths: glob.sync([])
   - npm install glob-all --save-dev
 purify 和 css module不能一块用，不过可以在purify的option中设置一些css-module的白名单来使用
+## 由浅入深webpack(2)
+### 文件处理-图片处理-CSS中引入图片、Base64编码
+文件处理：
+- 图片处理
+- 字体文件
+- 第三方 JS 库
+#### 图片处理
+- CSS 中引入的图片
+- 自动合成雪碧图
+- 压缩图片
+- Base64 编码
+插件：
+- file-loader
+- url-loader 用于base64编码
+- img-loader 压缩图片
+- postcss-sprites 合成雪碧图
