@@ -365,3 +365,11 @@ npm install html-webpack-plugin --save-dev
   - html-loader
   - options
     - attrs: [img: src]
+  ### 配合优化
+  提前载入webpack 加载代码
+  - inline-manifest-webpack-plugin
+  - html-webpack-inline-chunk-plugin
+  ```
+  npm i html-webpack-inline-chunk-plugin -D
+  npm i babel-core babel-loader babel-preset-env =D
+  ```

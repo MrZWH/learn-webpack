@@ -4,7 +4,7 @@ var PurifyWebpack = require('purfycss-webpack')
 var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
 var glob = require('glob-all')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-
+var HtmlInlineChunkPlugin = require('html-webpack-inline-chunk-plugin')
 
 var extractLess = new ExtractTextWebpackPlugin({
 	filename: 'css/[name].bundle-[hash:5].css',
@@ -26,6 +26,17 @@ module.exports = {
 	},
 	module: {
 		rules: [
+			{
+				test: /\.js$/,
+				use: [
+					{
+						loader: 'babel-loader',
+						options: {
+							presets: ['env']
+						}
+					}
+				]
+			},
 			{
 				test: /\.less$/,
 				use: extractLess.extract({
@@ -138,12 +149,18 @@ module.exports = {
 				'./src/*.js'
 			])
 		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'manifest'
+		}),
+		new HtmlInlineChunkPlugin({
+			inlineChunks: ['manifest']
+		})
 		// new webpack.ProvidePlugin({
 		// 	$: 'jquery'
 		// }),
 		new HtmlWebpackPlugin({
 			template: './index.html',
-			chunks: ['app'],
+			// chunks: ['app'],
 			minify: {
 				collapseWhitespace: true,
 			}
