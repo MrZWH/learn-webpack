@@ -71,6 +71,9 @@ module.exports = {
 							outputPath: 'dist/',
 							useRelativePath: true,
 						}
+					},
+					{
+						loader: 'img-loader'
 					}
 				]
 			}
