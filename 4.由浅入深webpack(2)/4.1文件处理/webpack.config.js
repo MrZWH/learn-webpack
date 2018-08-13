@@ -78,9 +78,9 @@ module.exports = {
 						options: {
 							name: '[name]-[hash:5].[ext]',
 							limit: 1000,
-							publicPath: '',
-							outputPath: 'dist/',
-							useRelativePath: true,
+							// publicPath: '',
+							outputPath: 'assets/imgs/',
+							// useRelativePath: true,
 						}
 					},
 					{
@@ -118,7 +118,16 @@ module.exports = {
 						}
 					}
 				]
-			}
+			},
+			test: /\.html$/,
+			use: [
+				{
+					loader: 'html-loader',
+					options: {
+						attrs: ['img:src', 'img:data-src']
+					}
+				}
+			]
 		]
 	},
 	plugins: [

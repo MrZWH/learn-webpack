@@ -358,3 +358,10 @@ npm install html-webpack-plugin --save-dev
   - minify
   - chunks
   - inject
+  ### HTML 中引入的图片
+  ```
+  npm i html-loader -D
+  ```
+  - html-loader
+  - options
+    - attrs: [img: src]
