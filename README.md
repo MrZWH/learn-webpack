@@ -340,3 +340,10 @@ purify 和 css module不能一块用，不过可以在purify的option中设置�
 - url-loader 用于base64编码
 - img-loader 压缩图片
 - postcss-sprites 合成雪碧图
+### 处理字体文件
+- file-loader
+- url-loader
+### 第三方 JS 库
+- webpack.providePlugin
+- imports-loader
+- window

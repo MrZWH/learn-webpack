@@ -17,6 +17,11 @@ module.exports = {
 		publicPath: './dist/'
 		filename: '[name].bundle.js',
 	},
+	resolve: {
+		alias: {
+			jquery$: path.resolve(__dirname, 'src/libs/jquery.min.js')
+		}
+	},
 	module: {
 		rules: [
 			{
@@ -41,7 +46,10 @@ module.exports = {
 							options: {
 								ident: 'postcss',
 								plugins: [
-									// require('autoprefixer')(),
+									require('postcss-sprites')({
+										spritePath: 'dist/assets/imgs/sprites',
+										retina: true
+									}),
 									require('postcss-cssnext')()
 								]
 							}
@@ -66,6 +74,7 @@ module.exports = {
 					{
 						loader: 'url-loader',
 						options: {
+							name: '[name]-[hash:5].[ext]',
 							limit: 1000,
 							publicPath: '',
 							outputPath: 'dist/',
@@ -73,7 +82,38 @@ module.exports = {
 						}
 					},
 					{
-						loader: 'img-loader'
+						loader: 'img-loader',
+						options: {
+							pngquant: {
+								quality: 80
+							}
+						}
+					}
+				]
+			},
+			{
+				test: /\.(eot|woff2|woff|ttf|svg)$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							name: '[name]-[hash:5].[ext]',
+							limit: 5000,
+							publicPath: '',
+							outputPath: 'dist/',
+							useRelativePath: true
+						}
+					}
+				]
+			},
+			{
+				test: path.resolve(__dirname, 'src/app.js'),
+				usr: [
+					{
+						loader: 'imports-loader',
+						options: {
+							$: 'jquery'
+						}
 					}
 				]
 			}
@@ -84,8 +124,12 @@ module.exports = {
 		new PurifyWebpack({
 			paths: glob.sync([
 				'./*.html',
-
+				'./src/*.js'
 			])
-		})
+		}),
+		// new webpack.ProvidePlugin({
+		// 	$: 'jquery'
+		// }),
+		new webpack.optimize.UglifyJsPlugin()
 	]
 }
