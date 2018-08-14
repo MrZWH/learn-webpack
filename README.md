@@ -387,3 +387,28 @@ webpack -w --progress --display-reasons --color
 ```
 npm install clean-webpack-plugin --save-dev
 ```
+### webpack-dev-server
+官方提供的web开发服务器
+支持哪些功能：
+- live reloading
+- 打包文件？ No
+- 路径重定向
+- https
+- 浏览器中显示编译错误
+- 接口代理
+- 模块热更新
+devServer
+- inline
+- contentBase
+- port
+- historyApiFallback
+- https
+- proxy
+- hot
+- openpage
+- lazy
+- overlay
+```
+npm install webpack-dev-server --save-dev
+node_modules/.bin/webpack-dev-server --open
+```

@@ -19,7 +19,24 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		// publicPath: './dist/',
+		publicPath: '/',
 		filename: 'js/[name].bundle-[hash:5].js',
+	},
+	devServer: {
+		port: 9001,
+		// historyApiFallback: true
+		historyApiFallback: {
+			rewrites: [
+				{
+					// from: '/pages/a',
+					from: /^\/([a-zA-Z0-9]+\/?)([a-zA-Z0-9]+)/,
+					// to: '/pages/a.html'
+					to: function (context) {
+						return '/' + context.match[1] + context.match[2] + '.html'
+					}
+				}
+			]
+		}
 	},
 	resolve: {
 		alias: {
