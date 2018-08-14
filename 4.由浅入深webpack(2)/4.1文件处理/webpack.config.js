@@ -1,10 +1,12 @@
 var webpack = require('webpack')
-var path = require('path')
 var PurifyWebpack = require('purfycss-webpack')
 var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
-var glob = require('glob-all')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var HtmlInlineChunkPlugin = require('html-webpack-inline-chunk-plugin')
+var CleanWebpackPlugin = require('clean-webpack-plugin')
+
+var path = require('path')
+var glob = require('glob-all')
 
 var extractLess = new ExtractTextWebpackPlugin({
 	filename: 'css/[name].bundle-[hash:5].css',
@@ -17,7 +19,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		// publicPath: './dist/',
-		filename: '[name].bundle-[hash:5].js',
+		filename: 'js/[name].bundle-[hash:5].js',
 	},
 	resolve: {
 		alias: {
@@ -166,6 +168,7 @@ module.exports = {
 			}
 			// inject: false
 		}),
-		new webpack.optimize.UglifyJsPlugin()
+		new webpack.optimize.UglifyJsPlugin(),
+		new CleanWebpackPlugin(['dist'])
 	]
 }

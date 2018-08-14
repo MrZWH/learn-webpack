@@ -358,18 +358,32 @@ npm install html-webpack-plugin --save-dev
   - minify
   - chunks
   - inject
-  ### HTML 中引入的图片
-  ```
-  npm i html-loader -D
-  ```
-  - html-loader
-  - options
-    - attrs: [img: src]
-  ### 配合优化
-  提前载入webpack 加载代码
-  - inline-manifest-webpack-plugin
-  - html-webpack-inline-chunk-plugin
-  ```
-  npm i html-webpack-inline-chunk-plugin -D
-  npm i babel-core babel-loader babel-preset-env =D
-  ```
+### HTML 中引入的图片
+```
+npm i html-loader -D
+```
+- html-loader
+- options
+  - attrs: [img: src]
+### 配合优化
+提前载入webpack 加载代码
+- inline-manifest-webpack-plugin
+- html-webpack-inline-chunk-plugin
+```
+npm i html-webpack-inline-chunk-plugin -D
+npm i babel-core babel-loader babel-preset-env =D
+```
+## Webpack 环境配置
+搭建开发环境
+- webpack watch mode
+- webpack-dev-server
+- express + webpack-dev-middleware
+### webpack watch mode
+```
+webpack -watch
+webpack -w --progress --display-reasons --color
+```
+让每次打包之前的文件都清除掉
+```
+npm install clean-webpack-plugin --save-dev
+```
