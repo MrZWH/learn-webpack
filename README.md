@@ -508,3 +508,16 @@ devServer.overlay
 ```
 --save-dev
 ```
+## 实战场景
+### 分析打包结果
+- Offical Analyse Tool
+- webpack-bundle-analyzer
+#### Offical Analyse Tool
+- mac: webpack --profile --json > stats.json
+- webpack --profile --json | Out-file 'stats.json' - Encoding OEM
+- http://webpack.github.io/analyse
+#### webpack-bundle-analyzer
+- 插件
+  - BundleAnalyzerPlugin
+- 命令行
+  - webpack-bundle-analyzer stats.json
