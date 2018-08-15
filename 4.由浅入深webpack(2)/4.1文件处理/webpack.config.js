@@ -37,6 +37,8 @@ module.exports = {
 				}
 			}
 		},
+		hot: true,
+		hotOnly: true,
 		// historyApiFallback: true
 		historyApiFallback: {
 			rewrites: [
@@ -199,6 +201,8 @@ module.exports = {
 			// inject: false
 		}),
 		new webpack.optimize.UglifyJsPlugin(),
-		new CleanWebpackPlugin(['dist'])
+		new CleanWebpackPlugin(['dist']),
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NamedModulesPlugin()
 	]
 }

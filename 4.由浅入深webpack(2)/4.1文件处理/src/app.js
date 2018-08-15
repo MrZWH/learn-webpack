@@ -15,3 +15,9 @@ $.get('/api/comments/show', {
 }, function (data) {
 	console.log(data)
 })
+
+if (module.hot) {
+	module.hot.accept('./commponents/a', function () {
+		
+	})
+}

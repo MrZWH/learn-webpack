@@ -423,3 +423,14 @@ options:
 - headers
 - logLevel
 - pathRewrite
+### Module Hot Reloading
+- 保持应用的数据状态
+- 节省调试时间
+- 样式调试更快
+
+- devServer.hot
+- webpack.HotModuleReplacementPlugin
+- webpack.NamedModulesPlugin
+- module.hot
+- module.hot.accept 接收两个参数，第一个参数是依赖，第二个是当依赖更新时的回调
+- module.hot.decline
