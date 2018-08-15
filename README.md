@@ -434,3 +434,23 @@ options:
 - module.hot
 - module.hot.accept 接收两个参数，第一个参数是依赖，第二个是当依赖更新时的回调
 - module.hot.decline
+### Source Map 调试
+- JS source map
+- CSS source map
+开启 source map：
+- Devtool
+- webpack.SourceMapDevToolPlugin
+- webpack.EvalSourceMapDevToolPlugin
+在开发环境 development：
+- eval
+- eval-source-map
+- cheap-eval-source-map √
+- cheap-module-eval-source-map
+Production：
+- source-map √
+- hidden-source-map
+- nosource-source-map
+关于css 的：
+css-loader.options.sourceMap
+less-loader.options.sourceMap
+sass-loader.options.sourceMap

@@ -22,6 +22,7 @@ module.exports = {
 		publicPath: '/',
 		filename: 'js/[name].bundle-[hash:5].js',
 	},
+	devtool: 'cheap-module-source-map',
 	devServer: {
 		port: 9001,
 		proxy: {
@@ -77,7 +78,8 @@ module.exports = {
 					fallback: {
 						loader: 'style-loader'
 						options: {
-							singleton: true,
+							// singleton: true,
+							sourceMap: true,
 							// transform: './css.transform.js'
 						}
 					},
@@ -86,11 +88,13 @@ module.exports = {
 							loader: 'css-loader'
 							options: {
 								importLoaders: 2,
+								sourceMap: true,
 							}
 						},
 						{
 							loader: 'postcss-loader',
 							options: {
+								sourceMap: true,
 								ident: 'postcss',
 								plugins: [
 									require('postcss-sprites')({
@@ -102,7 +106,10 @@ module.exports = {
 							}
 						},
 						{
-							loader: 'less-loader'
+							loader: 'less-loader',
+							options: {
+								sourceMap: true,
+							}
 						}
 					]
 				})
