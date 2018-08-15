@@ -204,7 +204,7 @@ module.exports = {
 		}),
 		new HtmlInlineChunkPlugin({
 			inlineChunks: ['manifest']
-		})
+		}),
 		new webpack.ProvidePlugin({
 			$: 'jquery'
 		}),
