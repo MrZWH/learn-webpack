@@ -1,1 +1,3 @@
-util.js
+function a () {}
+function b () {}
+function c () {}

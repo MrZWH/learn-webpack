@@ -25,6 +25,7 @@ module.exports = {
 	devtool: 'cheap-module-source-map',
 	devServer: {
 		port: 9001,
+		overlay: true,
 		proxy: {
 			'/api': {
 				target: 'https://m.weibo.cn',
@@ -63,11 +64,19 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js$/,
+				include: [path.resolve(__dirname, 'src')],
+				exclude: [path.resolve(__dirname, 'src/libs')],
 				use: [
 					{
 						loader: 'babel-loader',
 						options: {
 							presets: ['env']
+						}
+					},
+					{
+						loader: 'eslint-loader',
+						options: {
+							formatter: require('eslint-friendly-formatter')
 						}
 					}
 				]
@@ -160,17 +169,17 @@ module.exports = {
 					}
 				]
 			},
-			{
-				test: path.resolve(__dirname, 'src/app.js'),
-				usr: [
-					{
-						loader: 'imports-loader',
-						options: {
-							$: 'jquery'
-						}
-					}
-				]
-			},
+			// {
+			// 	test: path.resolve(__dirname, 'src/app.js'),
+			// 	usr: [
+			// 		{
+			// 			loader: 'imports-loader',
+			// 			options: {
+			// 				$: 'jquery'
+			// 			}
+			// 		}
+			// 	]
+			// },
 			test: /\.html$/,
 			use: [
 				{
@@ -196,9 +205,9 @@ module.exports = {
 		new HtmlInlineChunkPlugin({
 			inlineChunks: ['manifest']
 		})
-		// new webpack.ProvidePlugin({
-		// 	$: 'jquery'
-		// }),
+		new webpack.ProvidePlugin({
+			$: 'jquery'
+		}),
 		new HtmlWebpackPlugin({
 			template: './index.html',
 			// chunks: ['app'],

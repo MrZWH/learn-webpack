@@ -454,3 +454,27 @@ Production：
 css-loader.options.sourceMap
 less-loader.options.sourceMap
 sass-loader.options.sourceMap
+### EsLint 检查代码格式
+安装：
+- eslint
+- eslint-loader
+- eslint-plugin-html 在html中script中检查js
+- eslint-friendly-formatter
+配置 ESLint：
+- webpack config
+- .eslintrc.*
+- package.json 中的 eslintConfig
+如何告诉使用何种标准： 推荐 Javascript Standard Style（https://standardjs.com/ )
+支持这个标准需要安装：
+- eslint-config-standard
+- eslint-plugin-promise
+- eslint-plugin-standard
+- eslint-plugin-import
+- eslint-plugin-node
+
+eslint-loader 设置的一些参数：
+- options.failOnWarning 默认是 false 为 true是发现代码有warning 不予编译
+- options.failOnError
+- options.formatter
+- options.outputReport
+devServer.overlay
