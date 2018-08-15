@@ -1,38 +1,17 @@
 const webpack = require('webpack')
+const proxy = require('./proxy')
+const historyFallback = require('./historyfallback')
 
 module.exports = {
 	devtool: 'cheap-module-source-map',
 	devServer: {
 		port: 9001,
 		overlay: true,
-		proxy: {
-			'/api': {
-				target: 'https://m.weibo.cn',
-				changeOrigin: true,
-				logLevel: 'debug',
-				pathRewrite: {
-					'^/comments': '/api/comments'
-				},
-				headers: {
-					'Cookie': ''
-				}
-			}
-		},
+		proxy: proxy,
 		hot: true,
 		hotOnly: true,
 		// historyApiFallback: true
-		historyApiFallback: {
-			rewrites: [
-				{
-					// from: '/pages/a',
-					from: /^\/([a-zA-Z0-9]+\/?)([a-zA-Z0-9]+)/,
-					// to: '/pages/a.html'
-					to: function (context) {
-						return '/' + context.match[1] + context.match[2] + '.html'
-					}
-				}
-			]
-		}
+		historyApiFallback: historyFallback
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),

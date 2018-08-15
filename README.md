@@ -498,3 +498,13 @@ devServer.overlay
 - webpack.dev.conf.js
 - webpack.prod.conf.js
 - webpack.common.conf.js
+### 使用 middleware 搭建开发环境
+- Express or Koa
+- webpack-dev-middleware
+- webpack-hot-middleware
+- http-proxy-middleware
+- connect-history-api-fallback
+- opn 打开浏览器
+```
+--save-dev
+```
