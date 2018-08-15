@@ -8,3 +8,10 @@ div.className = box
 app.appendChild(div)
 
 $('div').addClass('new')
+
+$.get('/api/comments/show', {
+	id: '419358675883502',
+	page: 1
+}, function (data) {
+	console.log(data)
+})

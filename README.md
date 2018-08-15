@@ -412,3 +412,14 @@ devServer
 npm install webpack-dev-server --save-dev
 node_modules/.bin/webpack-dev-server --open
 ```
+### Proxy
+- 代理远程接口请求
+- http-proxy-middleware
+- devServer.proxy
+#### http-proxy-middleware
+options:
+- target
+- changeOrigin
+- headers
+- logLevel
+- pathRewrite
