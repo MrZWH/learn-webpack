@@ -574,6 +574,7 @@ module.exports = {
   ]
 }
 ```
+
 ### 长缓存优化
 什么是长缓存优化？
 为什么需要长缓存？
@@ -593,3 +594,31 @@ module.exports = {
 - 动态引入模块时，vendor hash 变化
 解决：
 - 定义动态模块的 chunk name
+
+### 多页面应用
+- 多入口 entry
+- 多页面 html
+- 每个页面不同的 chunk
+- 每个页面不同的参数
+实现的方式：
+- 多配置
+- 单配置
+
+#### 多配置
+- 从 webpack 3.1.0 就开始支持
+- 也可借助工具 parallel-webpack
+  - parallel-webpack --watch
+  - parallel-webpack --config
+  - 如果不是全局安装 node_modules/parallel-webpack/bin/run.js
+优点：
+- 可以使用 parallel-webpack 来提高打包速度
+- 配置更加独立，灵活
+缺点：
+不能多页面之间共享代码
+
+#### 单配置
+优点：
+- 可以共享各个 entry 之间的公用代码
+缺点：
+- 打包速度比较慢
+- 输出内容比较复杂
