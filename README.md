@@ -574,3 +574,22 @@ module.exports = {
   ]
 }
 ```
+### 长缓存优化
+什么是长缓存优化？
+为什么需要长缓存？
+怎么做到？
+场景：
+- 改变 app 代码，vendor 变化
+解决：
+- 提取 vendor
+- hash -> chunkhash
+- 提取 webpack runtime
+场景：
+- 引入新模块，模块顺序变化，vendor hash 变化
+解决：
+- NamedChunksPlugin
+- NamedModulesPlugin
+场景：
+- 动态引入模块时，vendor hash 变化
+解决：
+- 定义动态模块的 chunk name
