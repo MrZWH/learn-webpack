@@ -1,10 +1,12 @@
 # learn-webpack
+
 ### webpack 的诞生
 - Tobias Koppers （github：@sokra）
 - GWT (Google Web Toolkit)
 - Pull request
 - Webpack
 - Instagram
+
 ### 为什么需要构建
 - 开发分工的变化
 - 框架的变化
@@ -16,10 +18,12 @@
 - 语言编译化
 - 开发模块化
 - 框架去中心化
+
 ### 为什么 Webpack
 - Vue-cli/React-starter/Angular-cli
 - Code-splitting
 - 天生的模块化
+
 ### 模块化开发
 - JS 模块化
   - 命名空间
@@ -63,11 +67,13 @@
     - AMCSS
     - BEM
   - CSS Modules
+
 ### 环境准备
 mac：
 - Terminal
 - iTerm2：http://www.iterm2.com/
 - Zsh:http://ohmyz.sh/
+
 ### Webpack 简介
 - webpack 概述
   - 官网：https://webpack.js.org/
@@ -88,15 +94,18 @@ mac：
     - Scope Hoisting（作用域提升）
     - Magic Comments（配合动态 import 使用）
 - 版本迁移
+
 ### 核心概念
 - Entry
 - Output
 - Loaders
 - Plugins
+
 #### Entry
 - 代码的入口
 - 打包的入口
 - 单个或多个
+
 #### Output
 - 打包成的文件（bundle）
 - 一个或多个
@@ -121,9 +130,11 @@ module.exports = {
   }
 }
 ```
+
 #### Loaders
 - 处理文件
 - 转化为模块
+
 #### Plugins
 - 参与打包整个过程
 - 打包优化和压缩
@@ -137,7 +148,9 @@ module.exports = {
   - HtmlWebpackPlugin
   - HotModuleReplacementPlugin
   - CopyWebpackPlugin
-  ## 由浅入深 Webpack
+
+## 由浅入深 Webpack
+
 ### 使用 webpack
 - Webpack 命令
   - webpack -h
@@ -150,10 +163,13 @@ module.exports = {
   - Vue-cli
   - Angular-cli
   - React-starter
+
 #### Webpack-Cli
 - 交互式的初始化一个项目
 - 迁移项目！V1 -> V2
+
 ### 打包 JS
+
 ### 编译 es 6/7
 - Babel
   - Babel-loader
@@ -188,6 +204,7 @@ module.exports = {
     - npm install babel-plugin-runtime --save
     - npm install @babel/runtime --save 安装的babel为最新版时的安装
     - npm install @babel/plugin-transform-runtime --save-dev
+
 ### 编译 typescript
 typescript：
 - JS 的超集
@@ -203,18 +220,23 @@ typescript-loader
 tsconfig:
 配置选项：官网/docs/handbook/compiler-options.html
 常用选项：compilerOptions、include、exclude
+
 #### 声明文件
 - npm install @types/lodash
 - npm install @types/vue
+
 #### Typings
 - npm install typings
 - typings install lodash
+
 ### 打包公共代码
 提取公共代码：
 - 减少代码冗余
 - 提高加载速度
+
 #### CommonsChunkPlugin
 webpack.optimize.CommonsChunkPlugin 
+
 #### 配置
 ```js
 {
@@ -234,9 +256,11 @@ webpack.optimize.CommonsChunkPlugin
 - 单页应用 
 - 单页应用 + 第三方依赖
 - 单页应用 + 第三方依赖 + webpack 生成代码
+
 ### 代码分割和懒加载
 - webpack methods
 - ES 2015 Loader spec
+
 #### webpack methods
 - require.ensure
   - []: dependencies 这里加载的依赖只会加载代码不会执行
@@ -244,10 +268,12 @@ webpack.optimize.CommonsChunkPlugin
   - errorCallback
   - chunkName
 - require.include
+
 #### ES 2015 Loader spec
 - System.import() -> import()
 - import() -> Promise
 - import().then()
+
 #### webpack import function
 ```js
 import(
@@ -260,6 +286,7 @@ import(
 - 分离业务代码 和 第三方依赖
 - 分离业务代码 和 业务公共代码 和 第三方依赖
 - 分离首次加载 和 访问后加载的代码
+
 ### style-loader
 主要是创建style标签
 - style-loader
@@ -271,18 +298,21 @@ import(
   - insertInto （插入到 dom）
   - singleton （是否只使用一个 style 标签）
   - transform （转化，浏览器环境下，插入页面前）
+
 ### css-loader
 options
  - alias (解析的别名)
  - importLoader (@import)
  - Minimize (是否压缩)
  - modules (启用 css-modules)
+
 #### CSS-Modules
 :local 给本地局部加个样式
 :global 给全局样式
 compose 继承一个样式
 compose ... from path
-localIdentName: '[path][name]__[local]--[hash:base64:5]'  改配置用于设置类名模式
+localIdentName: 该配置用于设置类名模式，`'[path][name]__[local]--[hash:base64:5]'` 
+
 ### 配置 Less/Sass
 npm install less-loader less --save-dev
 npm install sass-loader node-sass --save-dev
@@ -291,6 +321,7 @@ npm install sass-loader node-sass --save-dev
 - ExtractTextWebpackPlugin 主流
 npm install extract-text-webpack-plugin --save-dev
 并不会自动的将打包出来的css 引入html中，需要手动link
+
 ### PostCSS in Webpack
 #### PostCSS
 A tool for transforming CSS with javascript
@@ -300,22 +331,28 @@ A tool for transforming CSS with javascript
   - autoprefixer
   - cssnano 压缩css
   - postcss-cssnext
+
 #### Browserslist
 所有插件都共用
 - package.json
 - .borwserslist
+
 #### 其他
 - postcss-import
 - postcss-url
 - postcss-assets
+
 ### Tree Shaking
 - JS Tree Shaking
 - CSS Tree Shaking
+
 #### 使用场景
 - 常规优化
 - 引入第三方库的某一个功能 有些第三方库并不能很好的支持 tree shaking，比如lodash，需要安装`npm install babel-loader babel-core babel-preset-env babel-plugin-lodash --save-dev`
+
 #### JS Tree Shaking
 - webpack.optimize.UglifyJSPlugin
+
 #### CSS Tree Shaking
 - Purify CSS
   - https://github.com/purifycss/purifycss
@@ -324,12 +361,14 @@ options
   - paths: glob.sync([])
   - npm install glob-all --save-dev
 purify 和 css module不能一块用，不过可以在purify的option中设置一些css-module的白名单来使用
+
 ## 由浅入深webpack(2)
 ### 文件处理-图片处理-CSS中引入图片、Base64编码
 文件处理：
 - 图片处理
 - 字体文件
 - 第三方 JS 库
+
 #### 图片处理
 - CSS 中引入的图片
 - 自动合成雪碧图
@@ -340,13 +379,16 @@ purify 和 css module不能一块用，不过可以在purify的option中设置�
 - url-loader 用于base64编码
 - img-loader 压缩图片
 - postcss-sprites 合成雪碧图
+
 ### 处理字体文件
 - file-loader
 - url-loader
+
 ### 第三方 JS 库
 - webpack.providePlugin
 - imports-loader
 - window
+
 ### HTML in Webpack 生成 html
 ```
 npm install html-webpack-plugin --save-dev
@@ -358,6 +400,7 @@ npm install html-webpack-plugin --save-dev
   - minify
   - chunks
   - inject
+
 ### HTML 中引入的图片
 ```
 npm i html-loader -D
@@ -365,6 +408,7 @@ npm i html-loader -D
 - html-loader
 - options
   - attrs: [img: src]
+
 ### 配合优化
 提前载入webpack 加载代码
 - inline-manifest-webpack-plugin
@@ -373,11 +417,13 @@ npm i html-loader -D
 npm i html-webpack-inline-chunk-plugin -D
 npm i babel-core babel-loader babel-preset-env =D
 ```
+
 ## Webpack 环境配置
 搭建开发环境
 - webpack watch mode
 - webpack-dev-server
 - express + webpack-dev-middleware
+
 ### webpack watch mode
 ```
 webpack -watch
@@ -412,10 +458,12 @@ devServer
 npm install webpack-dev-server --save-dev
 node_modules/.bin/webpack-dev-server --open
 ```
+
 ### Proxy
 - 代理远程接口请求
 - http-proxy-middleware
 - devServer.proxy
+
 #### http-proxy-middleware
 options:
 - target
@@ -423,6 +471,7 @@ options:
 - headers
 - logLevel
 - pathRewrite
+
 ### Module Hot Reloading
 - 保持应用的数据状态
 - 节省调试时间
@@ -434,6 +483,7 @@ options:
 - module.hot
 - module.hot.accept 接收两个参数，第一个参数是依赖，第二个是当依赖更新时的回调
 - module.hot.decline
+
 ### Source Map 调试
 - JS source map
 - CSS source map
@@ -454,6 +504,7 @@ Production：
 css-loader.options.sourceMap
 less-loader.options.sourceMap
 sass-loader.options.sourceMap
+
 ### EsLint 检查代码格式
 安装：
 - eslint
@@ -478,6 +529,7 @@ eslint-loader 设置的一些参数：
 - options.formatter
 - options.outputReport
 devServer.overlay
+
 ### 开发环境和生产环境
 开发环境：
 - 模块热更新
@@ -498,6 +550,7 @@ devServer.overlay
 - webpack.dev.conf.js
 - webpack.prod.conf.js
 - webpack.common.conf.js
+
 ### 使用 middleware 搭建开发环境
 - Express or Koa
 - webpack-dev-middleware
@@ -508,19 +561,23 @@ devServer.overlay
 ```
 --save-dev
 ```
+
 ## 实战场景
 ### 分析打包结果
 - Offical Analyse Tool
 - webpack-bundle-analyzer
+
 #### Offical Analyse Tool
 - mac: webpack --profile --json > stats.json
 - webpack --profile --json | Out-file 'stats.json' - Encoding OEM
 - http://webpack.github.io/analyse
+
 #### webpack-bundle-analyzer
 - 插件
   - BundleAnalyzerPlugin
 - 命令行
   - webpack-bundle-analyzer stats.json
+
 ### 打包速度优化
 影响打包速度的因素：
 - 文件多
@@ -622,3 +679,28 @@ module.exports = {
 缺点：
 - 打包速度比较慢
 - 输出内容比较复杂
+
+## Webpack 和 Vue
+- 脚手架
+- 项目模板
+- 配置文件
+
+### Vue-cli
+安装到全局：
+```
+npm install vue-cli -g
+vue --help
+vue list
+```
+vue templates:
+- simple
+- webpack
+- webpack-simple
+- browserify
+- browserify-simple
+使用模板去初始化项目：
+```
+vue init <template name> <project name>
+// 或
+vue init <git repo> <project name>
+```
