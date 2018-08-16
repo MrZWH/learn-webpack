@@ -521,3 +521,56 @@ devServer.overlay
   - BundleAnalyzerPlugin
 - 命令行
   - webpack-bundle-analyzer stats.json
+### 打包速度优化
+影响打包速度的因素：
+- 文件多
+- 依赖多
+- 页面多
+办法一：
+- 分开 vendor 和 app
+- DllPlugin
+- DllReferencePlugin
+办法二：
+- UglifyJsplugin
+  - parallel
+  - cache
+办法三：
+- HappyPack
+- HappyPack.ThreadPool
+办法四：
+- babel-loader
+  - options.cacheDirectory
+  - include
+  - exclude
+其他：
+- 减少 resolve
+- Devtool：去除 sourcemap
+- cache-loader
+- 升级 node
+- 升级 webpack
+```js
+// webpack.dll.conf.js 专门打包第三方依赖
+const path = require('path')
+const webpack = require('webpack')
+
+module.exports = {
+  entry: {
+    vue: ['vue', 'vue-router'],
+    ui: ['element-ui']
+  },
+
+  output: {
+    path: path.join(__dirname, '../src/dll/'),
+    filename: '[name].dll.js',
+    library: '[name]'
+  },
+
+  plugins: [
+    new webpack.DllPlugin({
+      path: path.join(__dirname, '../src/dll/', '[name]-manifest.json'),
+      name: '[name]'
+    }),
+    new webpack.optimize.UglifyJsPlugin()
+  ]
+}
+```
