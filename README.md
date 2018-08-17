@@ -698,9 +698,57 @@ vue templates:
 - webpack-simple
 - browserify
 - browserify-simple
+- pwa
 使用模板去初始化项目：
 ```
 vue init <template name> <project name>
 // 或
 vue init <git repo> <project name>
 ```
+
+## 总结
+### webpack 面试
+- 概念
+- 配置
+- 开发
+- 优化
+
+#### 概念问题一：什么是 webpack 和 grunt 和 gulp 有什么不同
+答案： webpack 是一个模块打包器，它可以递归的打包项目中的所有模块，最终生成几个打包后的文件。它和其他的工具最大的不同在于它支持 code-splitting、模块化（AMD、ESM、CommonJs）、全局分析。
+grunt 和 gulp 都是执行任务的。
+
+#### 概念问题二：什么是 bundle，什么是 chunk，什么是 module？
+答案：bundle 是webpack 打包出来的文件，chunk 是指 webpack在进行模块的依赖分析的时候，代码分割出来的代码块，module 是开发中的单个模块。
+
+#### 概念问题二：什么是 loader ？什么是 plugin？
+答案：Loaders 是用来告诉webpack 如何转化处理某一类型的文件，并且引入到打包出的文件中。Plugin 是用来自定义 webpack 打包过程的方式，一个插件是含有 apply 方法的对象，通过这个方法可以参与到整个 webpack 打包的各个流程（生命周期）
+
+#### 配置问题：如何可以自动生成 webpack 配置？
+答案：webpack-cli/vue-cli/etc...脚手架工具
+
+#### 开发问题一： webpack-dev-server 和 http 服务器如 nginx 有什么区别？
+答案：webpack-dev-server 使用内存来存储 webpack 开发环境下的打包文件，并且可以使用模块热更新，它比传统的 http 服务对开发更加简单高效。它其实就是 express + hot-middleware。
+
+#### 开发问题二： 什么是模块热更新？
+答案：模块热更新是 webpack 的一个功能，它可以使得代码修改过后不用刷新浏览器就可以更新，是高级版的自动刷新浏览器。其实是通过 websoket 推送加回调做到的
+
+#### 优化问题一：什么是长缓存？在 webpack 中如何做到长缓存优化？
+答案：浏览器在用户访问页面的时候，为了加快加载速度，会对用户访问的静态资源进行存储，但是每一次代码升级或是更新，都需要浏览器去下载新的代码，最方便和简单的更新方式就是引入新的文件名称。在 webpack 中可以在 output 中 给输出的文件指定 chunkhash，并且分离经常更新的代码和框架代码。通过 NamedModulesPlugin 或是 HashedModuleIdsPlugin 使再次打包文件名不变。
+
+#### 什么是 Tree-shaking？CSS 可以 Tree-shaking 吗？
+答案：Tree-shaking 是指在打包中去除那些已经引入了，但是在代码中没有被用到的那些死代码（dead code）。在 webpack 中 Tree-shaking 是通过 uglifyJSPlugin 来 Tree-shaking JS。CSS 需要使用 Purify-CSS。
+
+### Webpack 工程化总结
+- 实时编译
+- 开发服务
+- 自动优化
+
+#### Webpack 工程化思想
+- 一切皆为模块
+- 急速的调试相应速度
+- 优化应该自动完成
+
+#### Webpack 未来
+- 零配置？
+- 更快，更小？
+- Breaking change
