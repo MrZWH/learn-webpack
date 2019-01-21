@@ -1,5 +1,4 @@
-# learn-webpack
-
+## webpack 4.0
 ### webpack 的诞生
 - Tobias Koppers （github：@sokra）
 - GWT (Google Web Toolkit)
