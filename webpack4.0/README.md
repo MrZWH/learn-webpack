@@ -175,3 +175,5 @@ new MiniCssExtractPlugin({
 		}),
 ```
 使用 CDN 需设置`publicPath`，可以设置公共的，也可以单独为 img 配置。
+
+### 打包多页面应用
