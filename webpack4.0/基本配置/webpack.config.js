@@ -29,6 +29,12 @@ module.exports = {
 		path: path.resolve(__dirname, 'build'),
 		// publicPath: 'http://www.xxx.com',
 	},
+	// 源码映射
+	// source-map 会单独生成 .map 文件
+	// eval-source-map 不对产生单独文件 但是可以显示行和列
+	// cheap-module-source-map 不会产生列 但是会生成一个单独的文件，不会和源码关联起来
+	// cheap-module-eval-source-map 不会产生文件 集成在打包后的文件中 不会产生列
+	devtool: 'cheap-module-eval-source-map',
 	module: {
 		rules: [
 			{
@@ -110,11 +116,11 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			filename: 'css/main.css'
 		}),
-		new webpack.ProvidePlugin({ // 向每个模块注入 jquery 不需使用 import 
-			$: 'jquery'
-		})
+		// new webpack.ProvidePlugin({ // 向每个模块注入 jquery 不需使用 import 
+		// 	$: 'jquery'
+		// })
 	],
-	externals: {
-		jquery: '$'
-	}
+	// externals: {
+	// 	jquery: '$'
+	// }
 }

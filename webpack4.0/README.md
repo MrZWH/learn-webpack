@@ -177,3 +177,11 @@ new MiniCssExtractPlugin({
 使用 CDN 需设置`publicPath`，可以设置公共的，也可以单独为 img 配置。
 
 ### 打包多页面应用
+运用 HtmlWebpackPlugin 插件里面 chunks 参数
+
+### sourcemap
+// 源码映射
+- source-map 会单独生成 .map 文件
+- eval-source-map 不对产生单独文件 但是可以显示行和列
+- cheap-module-source-map 不会产生列 但是会生成一个单独的文件，不会和源码关联起来
+- cheap-module-eval-source-map 不会产生文件 集成在打包后的文件中 不会产生列
