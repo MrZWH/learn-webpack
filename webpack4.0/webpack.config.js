@@ -30,6 +30,10 @@ module.exports = {
 	},
 	module: {
 		rules: [
+			{
+				test: /\.html$/,
+				use: 'html-withimg-loader'
+			},
 			// {
 			// 	test: require.resolve('jquery'),
 			// 	use: 'expose-loader?$'
@@ -77,6 +81,17 @@ module.exports = {
 					'less-loader'
 				]
 			},
+			{
+				test: /\.(png|jpg|gif)$/,
+				// use: 'file-loader'
+				use: {
+					loader: 'url-loader',
+					options: {
+						// limit: 200 * 1024 // 200 kb
+						limit: 1,
+					}
+				}
+			}
 		]
 	}
 	plugins: [

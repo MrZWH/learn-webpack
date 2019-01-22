@@ -77,7 +77,7 @@ npm i optimize-css-assets-webpack-plugin -D
 npm i uglifyjs-webpack-plugin -D
 ```
 
-### 处理 JS
+## 处理 JS
 
 #### 将高级语法转换为 es5
 安装 babel：
@@ -127,3 +127,41 @@ console.log(window.$) // undefined
 也可以不使用 import，可使用`webpack.ProvidePlugin`插件，但是不能通过 window.$ 拿到
 
 如果在 html 中直接使用 CDN 引入，然后又在代码中使用 import 引入模块，webpack 则还会再打包一份该模块代码，需要通过配置`externals`属性去解决。
+
+### 图片处理
+#### 图片引入问题
+##### 在 js 中创建图片来引入
+```
+let image = new Image();
+image.src = './logo.png' // 这样并不会打包文件
+document.body.appendChild(image)
+```
+解决：
+安装处理图片的loader:
+```
+npm i file-loader -D
+```
+file-loader 会在内部生成一张图片到 build 目录下，并把生成的图片的名字返回回来
+```
+import logo from './logo.png' // 返回的结果是一个新的图片地址
+let image = new Image();
+image.src = logo
+document.body.appendChild(image)
+```
+##### 在 css 引入 background('url')
+```css
+body {
+	background: url("./logo.png") // css-loader 会把这块打包成 url(require("./logo.png"))
+}
+```
+##### `<img src="" alt="">`
+处理在html 中引入图片需安装：
+```
+npm i html-withimg-loader -D
+```
+
+#### 将小图片转换成 base64
+```
+npm i url-loader -D
+```
+base64 会比源文件大 1/3
