@@ -1,7 +1,21 @@
 let path = require('path')
 let HtmlWebpackPlugin = require('html-webpack-plugin')
+let MiniCssExtractPlugin = require('mini-css-extract-plugin')
+let OptimizeCss = require('optimize-css-assets-webpack-plugin')
+let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+let webpack = require('webpack')
 
 module.exports = {
+	optimization: { // 优化项，mode: 'development' 时不会走优化项
+		minimizer: [
+			new UglifyJsPlugin({
+				cache: true,
+				parallel: true, // 是否并行打包
+				sourceMap: true
+			}),
+			new OptimizeCss()
+		]
+	},
 	devServer: {
 		port: 3000,
 		progress: true,
@@ -14,6 +28,57 @@ module.exports = {
 		filename: 'bundle.[hash:8].js',
 		path: path.resolve(__dirname, 'build')
 	},
+	module: {
+		rules: [
+			// {
+			// 	test: require.resolve('jquery'),
+			// 	use: 'expose-loader?$'
+			// },
+			{
+				test: /\.js$/,
+				use： {
+					loader: 'eslint-loader',
+					options: {
+						enforce: 'pre', // previous post
+					}
+				}
+			},
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				include: path.resolve(__dirname, 'src'),
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: [ // 大插件的集合
+							'@babel/preset-env'
+						],
+						plugins: [ // 小插件
+							['@babel/plugin-proposal-decorators', {'legacy': true}],
+							['@babel/plugin-proposal-class- properties', {"loose": true}],
+							"@babel/plugin-transform-runtime"
+						]
+					}
+				}
+			},
+			{
+				test: /\.css$/,
+				use: [
+					MiniCssExtractPlugin.loader,
+					'css-loader'
+				]
+			},
+			{
+				test: /\.less$/,
+				use: [
+					MiniCssExtractPlugin.loader,
+					'css-loader',
+					'postcss-loader',
+					'less-loader'
+				]
+			},
+		]
+	}
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
@@ -23,6 +88,15 @@ module.exports = {
 				collapseWhitespace: true, // 折叠成一行
 			}，
 			hash: true,
+		}),
+		new MiniCssExtractPlugin({
+			filename: 'main.css'
+		}),
+		new webpack.ProvidePlugin({ // 向每个模块注入 jquery 不需使用 import 
+			$: 'jquery'
 		})
-	]
+	],
+	externals: {
+		jquery: '$'
+	}
 }
