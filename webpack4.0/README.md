@@ -165,3 +165,13 @@ npm i html-withimg-loader -D
 npm i url-loader -D
 ```
 base64 会比源文件大 1/3
+
+#### 打包文件分类
+image: `outputPath: 'img/'`
+css:
+```js
+new MiniCssExtractPlugin({
+			filename: 'css/main.css'
+		}),
+```
+使用 CDN 需设置`publicPath`，可以设置公共的，也可以单独为 img 配置。

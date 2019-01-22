@@ -26,7 +26,8 @@ module.exports = {
 	entry: './src/index.js',
 	output: {
 		filename: 'bundle.[hash:8].js',
-		path: path.resolve(__dirname, 'build')
+		path: path.resolve(__dirname, 'build'),
+		// publicPath: 'http://www.xxx.com',
 	},
 	module: {
 		rules: [
@@ -89,6 +90,8 @@ module.exports = {
 					options: {
 						// limit: 200 * 1024 // 200 kb
 						limit: 1,
+						outputPath: '/img/',
+						publicPath: 'http://www.xxx.com' // 若只想给图片 CDN
 					}
 				}
 			}
@@ -105,7 +108,7 @@ module.exports = {
 			hash: true,
 		}),
 		new MiniCssExtractPlugin({
-			filename: 'main.css'
+			filename: 'css/main.css'
 		}),
 		new webpack.ProvidePlugin({ // 向每个模块注入 jquery 不需使用 import 
 			$: 'jquery'
