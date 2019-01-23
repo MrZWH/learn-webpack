@@ -185,3 +185,33 @@ new MiniCssExtractPlugin({
 - eval-source-map 不对产生单独文件 但是可以显示行和列
 - cheap-module-source-map 不会产生列 但是会生成一个单独的文件，不会和源码关联起来
 - cheap-module-eval-source-map 不会产生文件 集成在打包后的文件中 不会产生列
+
+### watch
+```
+watch: true, // 实时编译
+	watchOptions: { // 监控的选项
+		poll: 1000, // 每秒 问 1000 次需要更新吗
+		aggregateTimeout: 500, // 防抖 我一直输入代码
+		ignored: /node_modules/, // 不需要监控
+	},
+```
+
+### webpack 小插件应用
+#### cleanWebpackPlugin
+清空目录，可以多个文件夹
+```
+npm i clean-webpack-plugin -D
+```
+#### copyWebpackPlugin
+拷贝目录
+```
+npm i copy-webpack-plugin -D
+```
+#### BannerPlugin 内置
+版权声明插件，webpack 内置插件
+
+### webpack 跨域问题
+在服务端启动 webpack：
+```
+npm i webpack-dev-middleware -D
+```

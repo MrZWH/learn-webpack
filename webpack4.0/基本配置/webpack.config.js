@@ -4,6 +4,8 @@ let MiniCssExtractPlugin = require('mini-css-extract-plugin')
 let OptimizeCss = require('optimize-css-assets-webpack-plugin')
 let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 let webpack = require('webpack')
+let cleanWebpackPlugin = require('clean-webpack-plugin')
+let copyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
 	optimization: { // 优化项，mode: 'development' 时不会走优化项
@@ -21,6 +23,19 @@ module.exports = {
 		progress: true,
 		contentBase: './build', // 以什么目录启动服务
 		compress: true, // gzip 压缩
+		proxy: {
+			// '/api': 'http://localhost:3000', //1） 配置一个代理
+			// '/api': {
+			// 	target: 'http://localhost:3000',
+			// 	pathRewrite: {'/api': ''}, // 当后端的接口并没有统一的前缀时，请求还是可以加上自己定义的前缀然后在这里去掉
+			// },
+			// before(app) { //2） 钩子函数，前端模拟数据时可用
+			// 	app.get('/user', (req, res) => {
+			// 		res.json({name: 'mary-before'})
+			// 	})
+			// },
+			//3） 有服务端 不用代码来处理 在服务端中启动 webpack 端口用服务端端口
+		}
 	},
 	mode: 'development',
 	entry: './src/index.js',
@@ -29,6 +44,12 @@ module.exports = {
 		path: path.resolve(__dirname, 'build'),
 		// publicPath: 'http://www.xxx.com',
 	},
+	// watch: true, // 实时编译
+	// watchOptions: { // 监控的选项
+	// 	poll: 1000, // 每秒 问 1000 次需要更新吗
+	// 	aggregateTimeout: 500, // 防抖 我一直输入代码
+	// 	ignored: /node_modules/, // 不需要监控
+	// },
 	// 源码映射
 	// source-map 会单独生成 .map 文件
 	// eval-source-map 不对产生单独文件 但是可以显示行和列
@@ -118,7 +139,12 @@ module.exports = {
 		}),
 		// new webpack.ProvidePlugin({ // 向每个模块注入 jquery 不需使用 import 
 		// 	$: 'jquery'
-		// })
+		// }),
+		// new cleanWebpackPlugin('./dist'),
+		// new copyWebpackPlugin([
+		// 	{from: './doc', to: './'}
+		// ]),
+		// new webpack.BannerPlugin('make 2019 by'),
 	],
 	// externals: {
 	// 	jquery: '$'
