@@ -286,3 +286,16 @@ webpack3.0 是用commonChunkPlugins
 npm i @babel/plugin-syntax-dynamic-import -D
 ```
 常用于路由懒加载
+
+### 热更新
+new webpack.NamedModulesPlugin(), // 打印更新的模块路径  
+new webpack.HotModuleReplacementPlugin(), // 热更新插件  
+还需要加入一些代码：
+```
+if (module.hot) {
+	module.hot.accept('./source.js', () => {
+		let str = require('./source.js')
+		console.log(str)
+	})
+}
+```

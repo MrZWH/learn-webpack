@@ -19,13 +19,24 @@
 // console.log($)
 
 
-let button = document.createElement('button')
-button.innerHTML = 'hello'
-button.addEventListener('click', function(){
-	// console.log('click')
-	import('./source.js').then(data => {
-		console.log(data.default)
-	})
-})
+// let button = document.createElement('button')
+// button.innerHTML = 'hello'
+// button.addEventListener('click', function(){
+// 	// console.log('click')
+// 	import('./source.js').then(data => {
+// 		console.log(data.default)
+// 	})
+// })
 
-document.body.appendChild(button)
+// document.body.appendChild(button)
+
+
+import str from './source.js'
+console.log(str)
+
+if (module.hot) {
+	module.hot.accept('./source.js', () => {
+		let str = require('./source.js')
+		console.log(str)
+	})
+}

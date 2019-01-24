@@ -38,6 +38,7 @@ module.exports = {
 	devServer: {
 		port: 3000,
 		progress: true,
+		hot: true,
 		open: true, // 自动打开浏览器
 		contentBase: './build', // 以什么目录启动服务
 		compress: true, // gzip 压缩
@@ -216,6 +217,8 @@ module.exports = {
 		// 	{from: './doc', to: './'}
 		// ]),
 		// new webpack.BannerPlugin('make 2019 by'),
+		new webpack.NamedModulesPlugin(), // 打印更新的模块路径
+		new webpack.HotModuleReplacementPlugin(), // 热更新插件
 	],
 	// externals: {
 	// 	jquery: '$'
