@@ -134,6 +134,12 @@ module.exports = {
 		]
 	},
 	plugins: [
+		new webpack.DefinePlugin({
+			// DEV: "'devlopment'", // 字符串要加双引号，也可以像下面方式写
+			DEV: JSON.stringify('devlopment'),
+			FLAG: 'true', // 有些需要 Boolean 值的就可以这样写
+			EXPORESSION: '1+1', // 也可以写表达式
+		}),
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
 			filename: 'index.html',

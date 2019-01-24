@@ -224,3 +224,13 @@ npm i webpack-dev-middleware -D
 - mainFields 第三方模块源文件查找的先后顺序
 - mainFiles 入口文件的名字
 - alias 别名
+
+### 定义环境变量
+pack.DefinePlugin  
+字符串需要外面再加一层双引号
+
+### 区分不同环境
+合并 webpack 配置文件：
+```
+npm i webpack-merge -D
+```
