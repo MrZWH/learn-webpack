@@ -10,10 +10,22 @@
 
 // moment.locale('zh-cn')
 
-import './a.js'
-import './b.js'
-console.log('index.js')
+// import './a.js'
+// import './b.js'
+// console.log('index.js')
 
-import $ from 'jquery'
+// import $ from 'jquery'
 
-console.log($)
+// console.log($)
+
+
+let button = document.createElement('button')
+button.innerHTML = 'hello'
+button.addEventListener('click', function(){
+	// console.log('click')
+	import('./source.js').then(data => {
+		console.log(data.default)
+	})
+})
+
+document.body.appendChild(button)

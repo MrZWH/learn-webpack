@@ -279,3 +279,10 @@ optimization: {
 }
 ```
 webpack3.0 是用commonChunkPlugins
+
+### 懒加载
+使用`import()`语法：
+```
+npm i @babel/plugin-syntax-dynamic-import -D
+```
+常用于路由懒加载

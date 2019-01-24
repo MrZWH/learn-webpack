@@ -18,22 +18,22 @@ module.exports = {
 			}),
 			new OptimizeCss()
 		],
-		splitChunks: { // 分割代码块，以前的是 commonChunkPlugins
-			cacheGroups: { // 缓存组
-				common:{ // 公共的模块
-					chunks: 'initial',
-					minSize: 0,
-					minChunks: 2, // 引用多少次的需要chouli
-				},
-				vendor: {// 抽离第三方包
-					priority: 1, // 添加权重
-					test: /node_modules/,
-					chunks: 'initial',
-					minSize: 0,
-					minChunks: 2,	
-				}
-			}
-		}
+		// splitChunks: { // 分割代码块，以前的是 commonChunkPlugins
+		// 	cacheGroups: { // 缓存组
+		// 		common:{ // 公共的模块
+		// 			chunks: 'initial',
+		// 			minSize: 0,
+		// 			minChunks: 2, // 引用多少次的需要chouli
+		// 		},
+		// 		vendor: {// 抽离第三方包
+		// 			priority: 1, // 添加权重
+		// 			test: /node_modules/,
+		// 			chunks: 'initial',
+		// 			minSize: 0,
+		// 			minChunks: 2,	
+		// 		}
+		// 	}
+		// },
 	},
 	devServer: {
 		port: 3000,
@@ -56,11 +56,11 @@ module.exports = {
 		}
 	},
 	mode: 'production',
-	// entry: './src/index.js',
-	entry: { // 多页应用抽离公共代码
-		index: './src/index.js',
-		other: './src/other.js'
-	},
+	entry: './src/index.js',
+	// entry: { // 多页应用抽离公共代码
+	// 	index: './src/index.js',
+	// 	other: './src/other.js'
+	// },
 	output: {
 		filename: 'bundle.[hash:8].js',
 		path: path.resolve(__dirname, 'build'),
@@ -112,21 +112,22 @@ module.exports = {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				include: path.resolve(__dirname, 'src'),
-				// use: {
-				// 	loader: 'babel-loader',
-				// 	options: {
-				// 		presets: [ // 大插件的集合
-				// 			'@babel/preset-env',
-				// 			'@babel/preset-react',
-				// 		],
-				// 		plugins: [ // 小插件
-				// 			['@babel/plugin-proposal-decorators', {'legacy': true}],
-				// 			['@babel/plugin-proposal-class- properties', {"loose": true}],
-				// 			"@babel/plugin-transform-runtime"
-				// 		]
-				// 	}
-				// },
-				use: 'Happypack/loader?id=js'
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: [ // 大插件的集合
+							'@babel/preset-env',
+							'@babel/preset-react',
+						],
+						plugins: [ // 小插件
+							['@babel/plugin-proposal-decorators', {'legacy': true}],
+							['@babel/plugin-proposal-class- properties', {"loose": true}],
+							"@babel/plugin-transform-runtime",
+							'@babel/plugin-syntax-dynamic-import'
+						]
+					}
+				},
+				// use: 'Happypack/loader?id=js'
 			},
 			{
 				test: /\.css$/,
@@ -161,23 +162,23 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new Happypack({
-			id: 'js',
-			use: [{
-				loader: 'babel-loader',
-				options: {
-					presets: [ // 大插件的集合
-						'@babel/preset-env',
-						'@babel/preset-react',
-					],
-					plugins: [ // 小插件
-						['@babel/plugin-proposal-decorators', {'legacy': true}],
-						['@babel/plugin-proposal-class- properties', {"loose": true}],
-						"@babel/plugin-transform-runtime"
-					]
-				}
-			}],
-		}),
+		// new Happypack({
+		// 	id: 'js',
+		// 	use: [{
+		// 		loader: 'babel-loader',
+		// 		options: {
+		// 			presets: [ // 大插件的集合
+		// 				'@babel/preset-env',
+		// 				'@babel/preset-react',
+		// 			],
+		// 			plugins: [ // 小插件
+		// 				['@babel/plugin-proposal-decorators', {'legacy': true}],
+		// 				['@babel/plugin-proposal-class- properties', {"loose": true}],
+		// 				"@babel/plugin-transform-runtime"
+		// 			]
+		// 		}
+		// 	}],
+		// }),
 		new Happypack({
 			id: 'css',
 			use: [
