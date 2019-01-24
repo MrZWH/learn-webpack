@@ -211,7 +211,16 @@ npm i copy-webpack-plugin -D
 版权声明插件，webpack 内置插件
 
 ### webpack 跨域问题
+配置 devServer proxy
+
 在服务端启动 webpack：
 ```
 npm i webpack-dev-middleware -D
 ```
+
+### resolve 属性的配置
+- modules 规定模块查找范围
+- extensions 没文件后缀时的查找规则
+- mainFields 第三方模块源文件查找的先后顺序
+- mainFiles 入口文件的名字
+- alias 别名

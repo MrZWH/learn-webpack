@@ -56,6 +56,15 @@ module.exports = {
 	// cheap-module-source-map 不会产生列 但是会生成一个单独的文件，不会和源码关联起来
 	// cheap-module-eval-source-map 不会产生文件 集成在打包后的文件中 不会产生列
 	devtool: 'cheap-module-eval-source-map',
+	resolve: { // 解析 第三方包 common 规范中先查找当前目录下的 node_modules，找不到再去上层查找
+		modules:[path.resolve('node_modules')], // 配置了这个，找的时候就在当前目录下找不要再去上层目录找了
+		extensions: ['.js'],
+		// mainFields: ['style', 'main'], // 先找 style 找不到就找 main
+		// mainFiles: [], // 入口文件的名字，默认是 index.js
+		// alias: { // 别名 vue vue.runtime.js
+		// 	bootstrap: 'bootstrap/dist/css/bootstrap.css',
+		// },
+	},
 	module: {
 		rules: [
 			{
