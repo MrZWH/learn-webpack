@@ -234,3 +234,48 @@ pack.DefinePlugin
 ```
 npm i webpack-merge -D
 ```
+
+### noParse
+让 webpack 不去解析分析该模块中的依赖关系库。  
+编译 react：
+```
+npm i @babel/preset-react -D
+```
+
+### IgnorePlguin
+忽略包中的文件，moment中的所有语言包
+### dllPlugin
+webpack.DllReferencePlugin  
+webpack.DllPlugin
+### happypack
+webpack 多线程打包
+```
+npm i happypack
+```
+### webpack 自带优化
+在 `mode='production'`时，webpack 会打开tree-shaking，引入模块方式为 import 才有效。  
+scope hosting 作用域提升，在 webpack 中会自动省略一些可以简化的代码
+
+### 多页面打包抽离公共代码
+只有多页应用（有多个入口文件）需要抽离公共代码，单页只有一个入口文件不需要。
+```
+optimization: {
+	splitChunks: { // 分割代码块，以前的是 commonChunkPlugins
+			cacheGroups: { // 缓存组
+				common:{ // 公共的模块
+					chunks: 'initial',
+					minSize: 0,
+					minChunks: 2, // 引用多少次的需要chouli
+				},
+				vendor: {// 抽离第三方包
+					priority: 1, // 添加权重
+					test: /node_modules/,
+					chunks: 'initial',
+					minSize: 0,
+					minChunks: 2,	
+				}
+			}
+		}
+}
+```
+webpack3.0 是用commonChunkPlugins

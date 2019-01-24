@@ -6,6 +6,7 @@ let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 let webpack = require('webpack')
 let cleanWebpackPlugin = require('clean-webpack-plugin')
 let copyWebpackPlugin = require('copy-webpack-plugin')
+let Happypack = require('happypack')
 
 module.exports = {
 	optimization: { // 优化项，mode: 'development' 时不会走优化项
@@ -16,11 +17,28 @@ module.exports = {
 				sourceMap: true
 			}),
 			new OptimizeCss()
-		]
+		],
+		splitChunks: { // 分割代码块，以前的是 commonChunkPlugins
+			cacheGroups: { // 缓存组
+				common:{ // 公共的模块
+					chunks: 'initial',
+					minSize: 0,
+					minChunks: 2, // 引用多少次的需要chouli
+				},
+				vendor: {// 抽离第三方包
+					priority: 1, // 添加权重
+					test: /node_modules/,
+					chunks: 'initial',
+					minSize: 0,
+					minChunks: 2,	
+				}
+			}
+		}
 	},
 	devServer: {
 		port: 3000,
 		progress: true,
+		open: true, // 自动打开浏览器
 		contentBase: './build', // 以什么目录启动服务
 		compress: true, // gzip 压缩
 		proxy: {
@@ -37,8 +55,12 @@ module.exports = {
 			//3） 有服务端 不用代码来处理 在服务端中启动 webpack 端口用服务端端口
 		}
 	},
-	mode: 'development',
-	entry: './src/index.js',
+	mode: 'production',
+	// entry: './src/index.js',
+	entry: { // 多页应用抽离公共代码
+		index: './src/index.js',
+		other: './src/other.js'
+	},
 	output: {
 		filename: 'bundle.[hash:8].js',
 		path: path.resolve(__dirname, 'build'),
@@ -66,6 +88,7 @@ module.exports = {
 		// },
 	},
 	module: {
+		noParse: /jquery/, // 让 webpack 不去解析分析该模块中的依赖关系库
 		rules: [
 			{
 				test: /\.html$/,
@@ -77,6 +100,7 @@ module.exports = {
 			// },
 			{
 				test: /\.js$/,
+				exclude: /node_modules/,
 				use： {
 					loader: 'eslint-loader',
 					options: {
@@ -88,26 +112,29 @@ module.exports = {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				include: path.resolve(__dirname, 'src'),
-				use: {
-					loader: 'babel-loader',
-					options: {
-						presets: [ // 大插件的集合
-							'@babel/preset-env'
-						],
-						plugins: [ // 小插件
-							['@babel/plugin-proposal-decorators', {'legacy': true}],
-							['@babel/plugin-proposal-class- properties', {"loose": true}],
-							"@babel/plugin-transform-runtime"
-						]
-					}
-				}
+				// use: {
+				// 	loader: 'babel-loader',
+				// 	options: {
+				// 		presets: [ // 大插件的集合
+				// 			'@babel/preset-env',
+				// 			'@babel/preset-react',
+				// 		],
+				// 		plugins: [ // 小插件
+				// 			['@babel/plugin-proposal-decorators', {'legacy': true}],
+				// 			['@babel/plugin-proposal-class- properties', {"loose": true}],
+				// 			"@babel/plugin-transform-runtime"
+				// 		]
+				// 	}
+				// },
+				use: 'Happypack/loader?id=js'
 			},
 			{
 				test: /\.css$/,
-				use: [
-					MiniCssExtractPlugin.loader,
-					'css-loader'
-				]
+				// use: [
+				// 	MiniCssExtractPlugin.loader,
+				// 	'css-loader'
+				// ],
+				use: 'Happypack/loader?id=css'
 			},
 			{
 				test: /\.less$/,
@@ -134,6 +161,34 @@ module.exports = {
 		]
 	},
 	plugins: [
+		new Happypack({
+			id: 'js',
+			use: [{
+				loader: 'babel-loader',
+				options: {
+					presets: [ // 大插件的集合
+						'@babel/preset-env',
+						'@babel/preset-react',
+					],
+					plugins: [ // 小插件
+						['@babel/plugin-proposal-decorators', {'legacy': true}],
+						['@babel/plugin-proposal-class- properties', {"loose": true}],
+						"@babel/plugin-transform-runtime"
+					]
+				}
+			}],
+		}),
+		new Happypack({
+			id: 'css',
+			use: [
+				MiniCssExtractPlugin.loader,
+				'css-loader'
+			]
+		}),
+		// new webpack.DllReferencePlugin({
+		// 	manifest:path.resolve(__dirname, 'dist', 'manifest.json')
+		// }),
+		new webpack.IgnorePlguin(/\.\/locale/, /moment/), // 忽略包中的文件，moment中的所有语言包
 		new webpack.DefinePlugin({
 			// DEV: "'devlopment'", // 字符串要加双引号，也可以像下面方式写
 			DEV: JSON.stringify('devlopment'),
@@ -141,7 +196,7 @@ module.exports = {
 			EXPORESSION: '1+1', // 也可以写表达式
 		}),
 		new HtmlWebpackPlugin({
-			template: './src/index.html',
+			template: './public/index.html',
 			filename: 'index.html',
 			minify: { // 用于压缩 html
 				removeAttributeQuotes: true, // 去掉属性的双引号
