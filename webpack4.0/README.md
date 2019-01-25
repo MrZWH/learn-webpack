@@ -299,3 +299,8 @@ if (module.hot) {
 	})
 }
 ```
+
+### tapable
+```
+npm i tapable
+```
