@@ -92,28 +92,117 @@
 
 
 // SyncLoopHook 同步遇到某个不返回 undefined 的监听函数会多次执行
-let {SyncLoopHook} = require('tapble')
+// let {SyncLoopHook} = require('tapble')
 
+// class Lesson {
+// 	constructor() {
+// 		this.index = 0
+// 		this.hooks = {
+// 			arch: new SyncLoopHook(['name'])
+// 		}
+// 	}
+
+// 	tap() { // 注册监听函数
+// 		this.hooks.arch.tap('node', (name) => {
+// 			console.log('node', name)
+// 			return ++this.index === 3 ? undefined : '继续学'
+// 		})
+// 		this.hooks.arch.tap('react', function(data) {
+// 			console.log('react', data)
+// 		})
+// 	}
+
+// 	start() {
+// 		this.hooks.arch.call('zhang')
+// 	}
+// }
+
+// let l = new Lesson()
+// l.tap() // 注册这两个事件
+// l.start(); // 启动钩子
+
+
+
+
+
+// AsyncParallelHook 异步并行钩子
+// let {AsyncParallelHook} = require('tapble')
+// // 异步的钩子（串行）（并行）需要等待所有并发的异步事件执行后再执行回调方法
+// // 同时发送多个请求
+// // 注册方法 分为 tap 注册 tapAsync
+// class Lesson {
+// 	constructor() {
+// 		this.index = 0
+// 		this.hooks = {
+// 			arch: new AsyncParallelHook(['name'])
+// 		}
+// 	}
+
+// 	tap() { // 注册监听函数
+// 		this.hooks.arch.tapAsync('node', (name, cb) => {
+// 			setTimeout(()=> {
+// 				console.log('node', name)
+// 				cb()
+// 			}, 1000)
+// 		})
+// 		this.hooks.arch.tapAsync('react', function(name, cb) {
+// 			setTimeout(()=> {
+// 				console.log('node', name)
+// 				cb()
+// 			}, 1000)
+// 		})
+// 	}
+
+// 	start() {
+// 		this.hooks.arch.callAsync('zhang', () => {
+// 			console.log('end')
+// 		})
+// 	}
+// }
+
+// let l = new Lesson()
+// l.tap() // 注册这两个事件
+// l.start(); // 启动钩子
+
+
+
+let {AsyncParallelHook} = require('tapble')
+// 异步的钩子（串行）（并行）需要等待所有并发的异步事件执行后再执行回调方法
+// 同时发送多个请求
+// 注册方法 分为 tap 注册 tapAsync
+// tapable 库中有三种注册方法 tap 同步注册 tapAsync tapPromise 注册的是 promise
+// call callAsync promise
 class Lesson {
 	constructor() {
 		this.index = 0
 		this.hooks = {
-			arch: new SyncLoopHook(['name'])
+			arch: new AsyncParallelHook(['name'])
 		}
 	}
 
 	tap() { // 注册监听函数
-		this.hooks.arch.tap('node', (name) => {
-			console.log('node', name)
-			return ++this.index === 3 ? undefined : '继续学'
+		this.hooks.arch.tapPromise('node', (name) => {
+			return new Promise((resolve, reject) => {
+				setTimeout(()=> {
+					console.log('node', name)
+					resolve()
+				}, 1000)
+			})
 		})
-		this.hooks.arch.tap('react', function(data) {
-			console.log('react', data)
+		this.hooks.arch.tapPromise('react', function(name) {
+			return new Promise((resolve, reject) => {
+				setTimeout(()=> {
+					console.log('react', name)
+					resolve()
+				}, 1000)
+			})
 		})
 	}
 
 	start() {
-		this.hooks.arch.call('zhang')
+		this.hooks.arch.promise('zhang').then(() => {
+			console.log('end')
+		})
 	}
 }
 

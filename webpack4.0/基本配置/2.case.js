@@ -99,39 +99,136 @@
 
 
 // SyncLoopHook
-class SyncLoopHook { // 钩子是同步的
+// class SyncLoopHook { // 钩子是同步的
+// 	constructor(args) { // agrs => ['name']
+// 		this.tasks = []
+// 	}
+// 	tap(name, task) {
+// 		this.tasks.push(task)
+// 	}
+// 	call(...args) {
+// 		this.tasks.forEach( function(tasks) {
+// 			let ret
+// 			do{
+// 				ret = task(...args)
+// 			}while (ret!=undefined)
+// 		});
+// 	}
+
+// }
+
+// let hook = new SyncLoopHook(['name'])
+
+// let total = 0
+
+// hook.tap('react', function(name) {
+// 	console.log('react', name)
+// 	return ++tatal === 3 ? undefined : '继续学'
+// })
+
+// hook.tap('node', function(name) {
+// 	console.log('node', name)
+// })
+
+// hook.tap('webpack', function(name) {
+// 	console.log('webpack', name)
+// })
+
+// hook.call('zhang')
+
+
+
+
+
+
+// AsyncParallelHook
+// class AsyncParallelHook { // 钩子是同步的
+// 	constructor(args) { // agrs => ['name']
+// 		this.tasks = []
+// 	}
+// 	tapAsync(name, task) {
+// 		this.tasks.push(task)
+// 	}
+// 	callAsync(...args) {
+// 		let finalCallback = args.pop()
+// 		let index = 0
+// 		let done = () => {
+// 			index++
+// 			if (index == this.tasks.length) {
+// 				finalCallback();
+// 			}
+// 		}
+// 		this.tasks.forEach((task) => {
+// 			task(...args. done)
+// 		});
+// 	}
+
+// }
+
+// let hook = new AsyncParallelHook(['name'])
+
+// let total = 0
+
+// hook.tapAsync('react', function(name, cb) {
+// 	setTimeout(()=> {
+// 		console.log('node', name)
+// 		cb()
+// 	}, 1000)
+// })
+
+// hook.tapAsync('node', function(name, cb) {
+// 	setTimeout(()=> {
+// 		console.log('node', name)
+// 		cb()
+// 	}, 1000)
+// })
+
+// hook.callAsync('zhang', () => {
+// 	console.log('end')
+// })
+
+
+
+
+
+class AsyncParallelHook { // 钩子是同步的
 	constructor(args) { // agrs => ['name']
 		this.tasks = []
 	}
-	tap(name, task) {
+	tapPromise(name, task) {
 		this.tasks.push(task)
 	}
-	call(...args) {
-		this.tasks.forEach( function(tasks) {
-			let ret
-			do{
-				ret = task(...args)
-			}while (ret!=undefined)
-		});
+	promise(...args) {
+		let tasks = this.tasks.map((task) => {
+			return task(...args)
+		})
+		return Promise.all(tasks)
 	}
 
 }
 
-let hook = new SyncLoopHook(['name'])
+let hook = new AsyncParallelHook(['name'])
 
 let total = 0
 
-hook.tap('react', function(name) {
-	console.log('react', name)
-	return ++tatal === 3 ? undefined : '继续学'
+hook.tapPromise('react', function(name) {
+	return new Promise((resolve, reject) => {
+		setTimeout(()=> {
+			console.log('node', name)
+			resolve()
+		}, 1000)
+	})
 })
 
-hook.tap('node', function(name) {
-	console.log('node', name)
+hook.tapPromise('node', function(name) {
+	return new Promise((resolve, reject) => {
+		setTimeout(()=> {
+			console.log('node', name)
+			resolve()
+		}, 1000)
+	})
 })
 
-hook.tap('webpack', function(name) {
-	console.log('webpack', name)
+hook.callAsync('zhang').then(() => {
+	console.log('end')
 })
-
-hook.call('zhang')
