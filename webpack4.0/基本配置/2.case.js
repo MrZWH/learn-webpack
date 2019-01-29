@@ -191,7 +191,104 @@
 
 
 
-class AsyncParallelHook { // 钩子是同步的
+// class AsyncParallelHook { // 钩子是同步的
+// 	constructor(args) { // agrs => ['name']
+// 		this.tasks = []
+// 	}
+// 	tapPromise(name, task) {
+// 		this.tasks.push(task)
+// 	}
+// 	promise(...args) {
+// 		let tasks = this.tasks.map((task) => {
+// 			return task(...args)
+// 		})
+// 		return Promise.all(tasks)
+// 	}
+
+// }
+
+// let hook = new AsyncParallelHook(['name'])
+
+// let total = 0
+
+// hook.tapPromise('react', function(name) {
+// 	return new Promise((resolve, reject) => {
+// 		setTimeout(()=> {
+// 			console.log('node', name)
+// 			resolve()
+// 		}, 1000)
+// 	})
+// })
+
+// hook.tapPromise('node', function(name) {
+// 	return new Promise((resolve, reject) => {
+// 		setTimeout(()=> {
+// 			console.log('node', name)
+// 			resolve()
+// 		}, 1000)
+// 	})
+// })
+
+// hook.callAsync('zhang').then(() => {
+// 	console.log('end')
+// })
+
+
+
+
+
+
+// AsyncSeriesHook
+// 异步串行
+// class AsyncSeriesHook { // 钩子是同步的
+// 	constructor(args) { // agrs => ['name']
+// 		this.tasks = []
+// 	}
+// 	tapAsync(name, task) {
+// 		this.tasks.push(task)
+// 	}
+// 	callAsync(...args) {
+// 		let finalCallback = args.pop()
+// 		let index = 0
+// 		let next = () => {
+// 			if (this.tasks.length === index) {
+// 				return finalCallback()
+// 			}
+// 			let task = this.tasks[index++]
+// 			task(...args, next)
+// 		}
+// 		next()
+// 	}
+
+// }
+
+// let hook = new AsyncSeriesHook(['name'])
+
+// let total = 0
+
+// hook.tapAsync('react', function(name,cb) {
+// 	setTimeout(()=> {
+// 		console.log('node', name)
+// 		cb()
+// 	}, 1000)
+// })
+
+// hook.tapAsync('node', function(name,cb {
+// 	setTimeout(()=> {
+// 		console.log('node', name)
+// 		cb()
+// 	}, 1000)
+// })
+
+// hook.callAsync('zhang', () => {
+// 	console.log('end')
+// })
+
+
+
+
+// 异步串行 promise 版
+class AsyncSerieslHook { // 钩子是同步的
 	constructor(args) { // agrs => ['name']
 		this.tasks = []
 	}
@@ -199,15 +296,15 @@ class AsyncParallelHook { // 钩子是同步的
 		this.tasks.push(task)
 	}
 	promise(...args) {
-		let tasks = this.tasks.map((task) => {
-			return task(...args)
-		})
-		return Promise.all(tasks)
+		let [first, ...others] = this.tasks
+		return others.reduce((p, n) => {
+			return p.then(() => n(...args))
+		}, first(...args))
 	}
 
 }
 
-let hook = new AsyncParallelHook(['name'])
+let hook = new AsyncSerieslHook(['name'])
 
 let total = 0
 
