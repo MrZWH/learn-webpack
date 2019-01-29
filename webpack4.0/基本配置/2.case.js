@@ -288,44 +288,98 @@
 
 
 // 异步串行 promise 版
-class AsyncSerieslHook { // 钩子是同步的
+// class AsyncSerieslHook { // 钩子是同步的
+// 	constructor(args) { // agrs => ['name']
+// 		this.tasks = []
+// 	}
+// 	tapPromise(name, task) {
+// 		this.tasks.push(task)
+// 	}
+// 	promise(...args) {
+// 		let [first, ...others] = this.tasks
+// 		return others.reduce((p, n) => {
+// 			return p.then(() => n(...args))
+// 		}, first(...args))
+// 	}
+
+// }
+
+// let hook = new AsyncSerieslHook(['name'])
+
+// let total = 0
+
+// hook.tapPromise('react', function(name) {
+// 	return new Promise((resolve, reject) => {
+// 		setTimeout(()=> {
+// 			console.log('node', name)
+// 			resolve()
+// 		}, 1000)
+// 	})
+// })
+
+// hook.tapPromise('node', function(name) {
+// 	return new Promise((resolve, reject) => {
+// 		setTimeout(()=> {
+// 			console.log('node', name)
+// 			resolve()
+// 		}, 1000)
+// 	})
+// })
+
+// hook.callAsync('zhang').then(() => {
+// 	console.log('end')
+// })
+
+
+
+
+
+
+class AsyncSeriesWaterfallHook { // 钩子是同步的
 	constructor(args) { // agrs => ['name']
 		this.tasks = []
 	}
-	tapPromise(name, task) {
+	tapAsync(name, task) {
 		this.tasks.push(task)
 	}
-	promise(...args) {
-		let [first, ...others] = this.tasks
-		return others.reduce((p, n) => {
-			return p.then(() => n(...args))
-		}, first(...args))
+	callAsync(...args) {
+		let finalCallback = args.pop()
+		let index = 0
+		let next = (err, data) => {
+			let task = this.tasks[index]
+			if (!task) {return finalCallback()}
+			if (index === 0) {
+				task(...args, next)
+			} else {
+				task(data, next)
+			}
+
+			index++
+		}
+
+		next()
 	}
 
 }
 
-let hook = new AsyncSerieslHook(['name'])
+let hook = new AsyncSeriesWaterfallHook(['name'])
 
 let total = 0
 
-hook.tapPromise('react', function(name) {
-	return new Promise((resolve, reject) => {
-		setTimeout(()=> {
-			console.log('node', name)
-			resolve()
-		}, 1000)
-	})
+hook.tapAsync('react', function(name,cb) {
+	setTimeout(()=> {
+		console.log('node', name)
+		cb(null, 'result')
+	}, 1000)
 })
 
-hook.tapPromise('node', function(name) {
-	return new Promise((resolve, reject) => {
-		setTimeout(()=> {
-			console.log('node', name)
-			resolve()
-		}, 1000)
-	})
+hook.tapAsync('node', function(data,cb {
+	setTimeout(()=> {
+		console.log('node', data)
+		cb(null)
+	}, 1000)
 })
 
-hook.callAsync('zhang').then(() => {
+hook.callAsync('zhang', () => {
 	console.log('end')
 })

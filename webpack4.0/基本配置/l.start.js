@@ -214,23 +214,61 @@
 
 
 
-let {AsyncSeriesHook} = require('tapble')
+// let {AsyncSeriesHook} = require('tapble')
+// class Lesson {
+// 	constructor() {
+// 		this.hooks = {
+// 			arch: new AsyncSeriesHook(['name'])
+// 		}
+// 	}
+// 	tap() { // 注册监听函数
+// 		this.hooks.arch.tapAsync('node', (name, cb) => {
+// 			setTimeout(()=> {
+// 				console.log('node', name)
+// 				cb()
+// 			}, 1000)
+// 		})
+// 		this.hooks.arch.tapAsync('react', function(name, cb) {
+// 			setTimeout(()=> {
+// 				console.log('react', name)
+// 				cb()
+// 			}, 1000)
+// 		})
+// 	}
+
+// 	start() {
+// 		this.hooks.arch.callAsync('zhang', () => {
+// 			console.log('end')
+// 		})
+// 	}
+// }
+
+// let l = new Lesson()
+// l.tap() // 注册这两个事件
+// l.start(); // 启动钩子
+
+
+
+
+
+
+let {AsyncSeriesWaterfallHook} = require('tapble')
 class Lesson {
 	constructor() {
 		this.hooks = {
-			arch: new AsyncSeriesHook(['name'])
+			arch: new AsyncSeriesWaterfallHook(['name'])
 		}
 	}
 	tap() { // 注册监听函数
 		this.hooks.arch.tapAsync('node', (name, cb) => {
 			setTimeout(()=> {
 				console.log('node', name)
-				cb()
+				cb('error', 'result')
 			}, 1000)
 		})
-		this.hooks.arch.tapAsync('react', function(name, cb) {
+		this.hooks.arch.tapAsync('react', function(data, cb) {
 			setTimeout(()=> {
-				console.log('react', name)
+				console.log('react', data)
 				cb()
 			}, 1000)
 		})
