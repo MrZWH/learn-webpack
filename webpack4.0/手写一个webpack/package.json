@@ -1,0 +1,14 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  },
+  "bin": {
+  	"zhang-pack": "./bin/zhang-pack.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

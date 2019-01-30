@@ -304,3 +304,17 @@ if (module.hot) {
 ```
 npm i tapable
 ```
+
+### 手写 webpack
+```
+npm link
+```
+```
+npm i  babylon @babel/traverse @babel/types @babel/generator -D
+```
+
+https://astexplorer.net
+
+```
+npm i tapable -S
+```
