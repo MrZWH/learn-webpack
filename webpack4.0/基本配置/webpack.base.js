@@ -88,6 +88,13 @@ module.exports = {
 		// 	bootstrap: 'bootstrap/dist/css/bootstrap.css',
 		// },
 	},
+	resolveLoader:{
+		modules: ['node_modules', path.resolve(__dirname, 'loader')]
+		// 别名
+		// alias: {
+		// 	style-loader: path.resolve(__dirname, 'loader', 'style-loader.js')
+		// }
+	},
 	module: {
 		noParse: /jquery/, // 让 webpack 不去解析分析该模块中的依赖关系库
 		rules: [

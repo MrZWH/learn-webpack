@@ -318,3 +318,56 @@ https://astexplorer.net
 ```
 npm i tapable -S
 ```
+
+使用自己写的loader：
+```
+module: {
+	rules: [
+		{
+			test: /\.css$/,
+			use: path.resolve(__dirname, 'loader', 'style-loader.js')
+		}
+	]
+}
+```
+更方便的写法：
+```
+resolveLoader:{
+	modules: ['node_modules', path.resolve(__dirname, 'loader')]
+	// 别名
+	// alias: {
+	// 	style-loader: path.resolve(__dirname, 'loader', 'style-loader.js')
+	// }
+},
+module: {
+	rules: [
+		{
+			test: /\.css$/,
+			use: 'style-loader'
+		}
+	]
+}
+```
+loader 的顺序，从右向左 从下到上
+
+loader 的分类：pre 在前面 post 在后面 normal，使用 enforce 设置
+```
+// -! 不会让文件 再去通过 pre + normal loader 来处理了
+// ! 没有 normal
+// !! 什么都不要
+let str = require('-!inline-loader!./a.js')
+```
+loader 默认是由两部分组成 pitch normal
+pitch 有返回值时 会打断loader 执行顺序
+```
+// loader.js
+function loader (source) {
+	return source
+}
+
+loader.pitch = function() {
+
+}
+
+module.exports = loader
+```
