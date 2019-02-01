@@ -388,3 +388,9 @@ yarn add loader-utils
 yarn add schema-utils
 ```
 在 webpack 设置了 `watch:true`时loader 中引用别的文件改动不会引起webpack 自动打包，需要设置`this.addDependency(options.filename)`将文件添加入依赖。
+
+### 实现 file-loader 、url-loader
+获取图片类型：
+```
+yarn add mime
+```
