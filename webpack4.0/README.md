@@ -381,3 +381,10 @@ yarn add @babel/core @babel/preset-env
 ```
 yarn add loader-utils
 ```
+
+### 实现 banner-loader
+校验 options：
+```
+yarn add schema-utils
+```
+在 webpack 设置了 `watch:true`时loader 中引用别的文件改动不会引起webpack 自动打包，需要设置`this.addDependency(options.filename)`将文件添加入依赖。

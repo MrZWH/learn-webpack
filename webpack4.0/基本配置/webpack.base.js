@@ -108,6 +108,16 @@ module.exports = {
 			// },
 			{
 				test: /\.js$/,
+				use： {
+					loader: 'banner-loader',
+					options: {
+						text: 'zhang',
+						filename: path.resolve(__dirname, 'banner.js')
+					}
+				}
+			},
+			{
+				test: /\.js$/,
 				exclude: /node_modules/,
 				use： {
 					loader: 'eslint-loader',
