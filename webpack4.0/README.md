@@ -371,3 +371,13 @@ loader.pitch = function() {
 
 module.exports = loader
 ```
+
+### 实现 babel-loader
+```
+yarn add @babel/core @babel/preset-env
+```
+
+获取 loader 的 options
+```
+yarn add loader-utils
+```
