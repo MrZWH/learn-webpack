@@ -394,3 +394,6 @@ yarn add schema-utils
 ```
 yarn add mime
 ```
+
+### 实现 css-loader 结合 less-loader style-loader
+JSON.stringify(source) 会将换行符等转换成`\r\n`
