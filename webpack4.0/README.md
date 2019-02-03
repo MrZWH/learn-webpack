@@ -400,3 +400,7 @@ JSON.stringify(source) 会将换行符等转换成`\r\n`
 
 ### 实现 webpack 中的 plugins
 #### 文件列表插件
+FileListPlugin
+
+#### 内联插件
+把资源外联的标签 变成内联的标签

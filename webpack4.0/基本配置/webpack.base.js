@@ -9,6 +9,7 @@ let copyWebpackPlugin = require('copy-webpack-plugin')
 let Happypack = require('happypack')
 
 let FileListPlugin = require('./plugins/FileListPlugin')
+let InlineSourcePlugin = require('./plugins/InlineSourcePlugin')
 
 module.exports = {
 	optimization: { // 优化项，mode: 'development' 时不会走优化项
@@ -241,6 +242,9 @@ module.exports = {
 		new FileListPlugin({
 			filename: 'list.md'
 		}), // 自定义插件
+		new InlineSourcePlugin({
+			match: /\.(js|css)/,
+		}),
 	],
 	// externals: {
 	// 	jquery: '$'

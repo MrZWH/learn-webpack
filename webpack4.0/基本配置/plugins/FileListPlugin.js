@@ -13,6 +13,7 @@ class FileListPlugin {
 			Object.entries(assets).forEach(([filename, statObj]) => {
 				content += `- ${filename}    ${statObj.size()}\r\n`
 			})
+			// 资源对象
 			assets[this.filename] = {
 				source() {
 					return content
