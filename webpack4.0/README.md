@@ -397,3 +397,6 @@ yarn add mime
 
 ### 实现 css-loader 结合 less-loader style-loader
 JSON.stringify(source) 会将换行符等转换成`\r\n`
+
+### 实现 webpack 中的 plugins
+#### 文件列表插件

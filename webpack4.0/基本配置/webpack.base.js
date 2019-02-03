@@ -8,6 +8,8 @@ let cleanWebpackPlugin = require('clean-webpack-plugin')
 let copyWebpackPlugin = require('copy-webpack-plugin')
 let Happypack = require('happypack')
 
+let FileListPlugin = require('./plugins/FileListPlugin')
+
 module.exports = {
 	optimization: { // 优化项，mode: 'development' 时不会走优化项
 		minimizer: [
@@ -236,6 +238,9 @@ module.exports = {
 		// new webpack.BannerPlugin('make 2019 by'),
 		new webpack.NamedModulesPlugin(), // 打印更新的模块路径
 		new webpack.HotModuleReplacementPlugin(), // 热更新插件
+		new FileListPlugin({
+			filename: 'list.md'
+		}), // 自定义插件
 	],
 	// externals: {
 	// 	jquery: '$'
