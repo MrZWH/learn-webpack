@@ -10,6 +10,7 @@ let Happypack = require('happypack')
 
 let FileListPlugin = require('./plugins/FileListPlugin')
 let InlineSourcePlugin = require('./plugins/InlineSourcePlugin')
+let UploadPlugin = require('./plugins/UploadPlugin.js')
 
 module.exports = {
 	optimization: { // 优化项，mode: 'development' 时不会走优化项
@@ -242,9 +243,15 @@ module.exports = {
 		new FileListPlugin({
 			filename: 'list.md'
 		}), // 自定义插件
-		new InlineSourcePlugin({
-			match: /\.(js|css)/,
-		}),
+		// new InlineSourcePlugin({
+		// 	match: /\.(js|css)/,
+		// }),
+		new UploadPlugin({
+			bucket: 'xxstatic', // 存储空间列表
+			domain: '外链默认域名自己买的域名',
+			accessKey: '个人面板-个人中心-密钥管理-AK',
+			secretKey: '个人面板-个人中心-密钥管理-SK',
+		})
 	],
 	// externals: {
 	// 	jquery: '$'

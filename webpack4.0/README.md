@@ -404,3 +404,9 @@ FileListPlugin
 
 #### 内联插件
 把资源外联的标签 变成内联的标签
+
+#### 自动上传 webpack 插件
+将打包后的文件上传至[https://www.qiniu.com](七牛云)
+```
+yarn add qiniu
+```
