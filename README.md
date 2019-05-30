@@ -1,5 +1,8 @@
 [webpack 3 版本](./webpack3.0/README.md)  
-[webpack 4 版本](./webpack4.0/README.md)  
+[webpack 4 版本](./webpack4.0/README.md) 
+
+### what is webpack ?
+是模块打包工具
 
 ### webpack 的诞生
 - Tobias Koppers （github：@sokra）
@@ -95,3 +98,14 @@ mac：
     - Scope Hoisting（作用域提升）
     - Magic Comments（配合动态 import 使用）
 - 版本迁移
+
+### 一些技巧
+`npx`的使用会先查找你本地的 `node_modules`里的包,只在本地安装的 webpack 可以使用如下命令调用:
+```
+npx webpack <入口文件>
+```
+
+查看某个包的版本信息等:
+```
+npm info webpack
+```

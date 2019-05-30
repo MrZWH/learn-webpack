@@ -174,7 +174,7 @@ module.exports = {
 				use: {
 					loader: 'url-loader',
 					options: {
-						// limit: 200 * 1024 // 200 kb
+						// limit: 200 * 1024 // 200 kb 单位字节
 						limit: 1,
 						outputPath: '/img/',
 						publicPath: 'http://www.xxx.com' // 若只想给图片 CDN
